@@ -56,8 +56,6 @@ public class VentanaAgregarRestaurante extends JFrame
        
         
         
-       
-        
         // Termina de configurar la ventana
         pack( );
         setLocationRelativeTo( null );
@@ -72,8 +70,9 @@ public class VentanaAgregarRestaurante extends JFrame
     {
        int calificacion = panelDetalles.getCalificacion();
        String nombre = panelDetalles.getNombre();
-       int x = panelDetalles.getX();
-       int y = panelDetalles.getY();
+       int[] cordenadas = panelMapa.getCoordenadas();
+       int x =cordenadas[0];
+       int y = cordenadas[1];
        boolean visitado = panelDetalles.getVisitado();
        
        ventanaPrincipal.agregarRestaurante(nombre, calificacion, x, y, visitado);
