@@ -51,9 +51,11 @@ public class VentanaPrincipal extends JFrame
         // Configura los componentes de la ventana
         pBotones = new PanelBotones( this );
         add( pBotones, BorderLayout.NORTH );
+        
+        
 
         pLista = new PanelLista( this );
-        add( pLista );
+        add( pLista,BorderLayout.CENTER  );
 
         pDetalles = new PanelDetallesRestaurante( );
         add( pDetalles, BorderLayout.SOUTH );
@@ -86,7 +88,11 @@ public class VentanaPrincipal extends JFrame
      */
     public void mostrarVentanaMapa( )
     {
-        // TODO completar mostrarVentanaMapa
+    	 if( ventanaMapa == null || !ventanaMapa.isVisible( ) )
+         {
+    		 ventanaMapa = new VentanaMapa( this, mundo.getRestaurantes(true)); //TODO esta parte requier de una lista de toddos los restaurantes no solo de los visitados
+    		 ventanaMapa.setVisible( true );
+         }
     }
 
     /**
@@ -97,11 +103,13 @@ public class VentanaPrincipal extends JFrame
      * @param y La coordenada Y del nuevo restaurante
      * @param visitado Indica si el nuevo restaurante ya fue visitado o no
      */
-    public void agregarRestaurante( String nombre, int calificacion, int x, int y, boolean visitado )
+    public void agregarRestaurante(String nombre, int calificacion, int x, int y, boolean visitado)
     {
-        // TODO completar agregarRestaurante
+        Restaurante nuevo = new Restaurante(nombre, calificacion, x, y, visitado);
+        mundo.agregarRestaurante(nuevo);
+        actualizarRestaurantes();
+        pLista.seleccionarRestaurante(nuevo);
     }
-
     /**
      * Retorna una lista de los restaurantes.
      * 
@@ -121,6 +129,13 @@ public class VentanaPrincipal extends JFrame
     {
         List<Restaurante> todos = this.mundo.getRestaurantes( true );
         // TODO completar actualizarRestaurantes
+        pLista.actualizarRestaurantes(todos);
+        if (!todos.isEmpty())
+        {
+            Restaurante seleccionado = todos.get(0);
+            pLista.seleccionarRestaurante(seleccionado);
+            cambiarRestauranteSeleccionado(seleccionado);
+        }
     }
 
     /**
