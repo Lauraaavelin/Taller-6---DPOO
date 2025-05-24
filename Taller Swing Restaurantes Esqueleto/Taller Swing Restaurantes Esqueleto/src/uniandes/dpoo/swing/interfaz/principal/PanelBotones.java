@@ -1,4 +1,4 @@
-package uniandes.dpoo.swing.interfaz.principal;
+ package uniandes.dpoo.swing.interfaz.principal;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -31,10 +31,16 @@ public class PanelBotones extends JPanel implements ActionListener
         setLayout( new FlowLayout( ) );
 
         // Agrega el botón para crear un nuevo restaurante
-        // TODO completar
+        butNuevo = new JButton("Nuevo");
+        butNuevo.setActionCommand(NUEVO);
+        butNuevo.addActionListener(this);
+        add(butNuevo);
 
         // Agrega el botón para ver todos los restaurantes
-        // TODO completar
+        butVerTodos = new JButton("Ver todos");
+        butVerTodos.setActionCommand(VER);
+        butVerTodos.addActionListener(this);
+        add(butVerTodos);
     }
 
     @Override

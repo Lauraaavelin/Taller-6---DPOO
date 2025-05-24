@@ -28,20 +28,35 @@ public class PanelDetallesRestaurante extends JPanel
      */
     private JCheckBox chkVisitado;
 
-    public PanelDetallesRestaurante( )
+    public PanelDetallesRestaurante()
     {
-        // Configura la etiqueta para el nombre
-        // TODO completar el constructor
+        // Usa un GridLayout para organizar en tres filas
+        setLayout(new GridLayout(3, 1, 5, 5));
 
-        // Configura la etiqueta para la calificación
-        // TODO completar el constructor
+        // Etiqueta para mostrar el nombre del restaurante
+        labNombre = new JLabel("Nombre: ");
+        labNombre.setHorizontalAlignment(JLabel.LEFT);
+        add(labNombre);
 
-        // Configura el checkbox para indicar si ya se visitaó o no el restaurante
-        // TODO completar el constructor
+        // Etiqueta para la imagen de calificación
+        JPanel panelCalificacion = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel labTextoCalificacion = new JLabel("Calificación: ");
+        labCalificacion = new JLabel();
+        labCalificacion.setIcon(buscarIconoCalificacion(3));
+        panelCalificacion.add(labTextoCalificacion);
+        panelCalificacion.add(labCalificacion);
 
-        // Organiza los elementos en la venta
-        // TODO completar el constructor
+        add(panelCalificacion);
+
+        JPanel panelVisitado = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel lblVisitado = new JLabel("Visitado: ");
+        chkVisitado = new JCheckBox();
+        chkVisitado.setEnabled(false); // Solo mostrar, no permitir cambios
+        panelVisitado.add(lblVisitado);  // Agregar label primero
+        panelVisitado.add(chkVisitado); // luego el checkbox
+        add(panelVisitado);
     }
+
 
     /**
      * Actualiza los datos mostrados del restaurante, indicando los valores por separado.
@@ -49,10 +64,13 @@ public class PanelDetallesRestaurante extends JPanel
      * @param calificacion
      * @param visitado
      */
-    private void actualizarRestaurante( String nombre, int calificacion, boolean visitado )
+    private void actualizarRestaurante(String nombre, int calificacion, boolean visitado)
     {
-     // TODO completar actualizarRestaurante
+        labNombre.setText("Nombre: "+nombre);
+        labCalificacion.setIcon(buscarIconoCalificacion(calificacion));
+        chkVisitado.setSelected(visitado);
     }
+
 
     /**
      * Actualiza los datos que se muestran de un restaurante

@@ -46,35 +46,53 @@ public class VentanaMapa extends JFrame implements ActionListener
      */
     private VentanaPrincipal ventanaPrincipal;
 
-    public VentanaMapa( VentanaPrincipal ventanaPrincipal, List<Restaurante> restaurantes )
-    {
+    public VentanaMapa(VentanaPrincipal ventanaPrincipal, List<Restaurante> restaurantes) {
         this.ventanaPrincipal = ventanaPrincipal;
 
-        // Agrega el panel donde se muestra el mapa
-        // TODO completar
+        setLayout(new BorderLayout());
 
-        // Agrega el panel con los RadioButtons y los configura
-        // TODO completar
+        // Panel del mapa
+        
+        panelMapa = new PanelMapaVisualizar(); 
+        panelMapa.actualizarMapa(restaurantes);
+        add(panelMapa, BorderLayout.CENTER);
 
-        // Termina de configurar la ventana y la muestra
-        pack( );
-        setResizable( false );
-        setDefaultCloseOperation( DISPOSE_ON_CLOSE );
-        setLocationRelativeTo( null );
+        // Panel con los radios
+        JPanel panelRadios = new JPanel();
+        radioTodos = new JRadioButton("Todos", true);
+        radioVisitados = new JRadioButton("Visitados");
+
+        radioTodos.setActionCommand(TODOS);
+        radioVisitados.setActionCommand(VISITADOS);
+
+        radioTodos.addActionListener(this);
+        radioVisitados.addActionListener(this);
+
+        ButtonGroup grupo = new ButtonGroup();
+        grupo.add(radioTodos);
+        grupo.add(radioVisitados);
+
+        panelRadios.add(radioTodos);
+        panelRadios.add(radioVisitados);
+
+        add(panelRadios, BorderLayout.SOUTH);
+        
+        setTitle("Mapa");
+        pack();
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
     }
 
     @Override
-    public void actionPerformed( ActionEvent e )
-    {
-        String comando = e.getActionCommand( );
-        if( TODOS.equals( comando ) )
-        {
-            panelMapa.actualizarMapa( ventanaPrincipal.getRestaurantes( true ) );
-        }
-        else if( VISITADOS.equals( comando ) )
-        {
-            panelMapa.actualizarMapa( ventanaPrincipal.getRestaurantes( false ) );
+    public void actionPerformed(ActionEvent e) {
+        String comando = e.getActionCommand();
+        if (TODOS.equals(comando)) {
+            panelMapa.actualizarMapa(ventanaPrincipal.getRestaurantes(true));
+        } else if (VISITADOS.equals(comando)) {
+            panelMapa.actualizarMapa(ventanaPrincipal.getRestaurantes(false));
         }
     }
-
 }
+
+
